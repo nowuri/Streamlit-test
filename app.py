@@ -1,7 +1,7 @@
 # app.py file
 import streamlit as st
-import random
 import datetime
+import random
 
 st.title(":sparkles:로또 생성기:sparkles:")
 
