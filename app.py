@@ -1,20 +1,27 @@
 # app.py file
-import streamlit as st 
-import FinanceDataReader as fdr
+import streamlit as st
+import random
 import datetime
 
-date = st.date_input(
-    "조회 시작일을 선택해 주세요",
-    datetime.datetime(2022,1,1)
-    )
-    
+st.title(":sparkles:로또 생성기:sparkles:")
 
-code = st.text_input(
-    '종목코드',
-    value = '',
-    placeholder = '종목코드를 입력해 주세요')
+def generate_lotto():
+    lotto = set()
     
-if code and date:
-    df = fdr.DataReader(code, date)
-    data = df.sort_index(ascending = True).loc[:,'Close']
-    st.line_chart(data)
+    while len(lotto) < 6:
+        number = random.randint(1,46)
+        lotto.add(number) 
+    
+    lotto = list(lotto) 
+    lotto.sort() 
+    return lotto 
+
+st.subheader(f'행운의 번호: :green[{generate_lotto()}]')
+st.write(f"생성된 시각: {datetime.datetime.now().strftime('%Y-%m,-%d %H:%M')}")
+
+button = st.button('로또를 생성해주세요!')
+
+if button:
+    for i in range(1,6):
+        st.subheader(f'{i}. 행운의 번호: :green[{generate_lotto()}]')
+    st.write(f"생성된 시각: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
